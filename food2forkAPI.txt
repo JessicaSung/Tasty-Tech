@@ -1,0 +1,69 @@
+Current API Plan: Free 
+Usage: 0 / 500 
+API Key: 3ddf33388a85595eb6bcc15116a16e16 
+
+Documentation
+
+Submitting a Query
+
+All search requests should be made to the base search API URL. http://food2fork.com/api/search 
+All recipe requests should be made to this URL: http://food2fork.com/api/get 
+Parameters
+
+All parameters can be encoded as either HTTP GET or POST parameters.
+Search
+key: API Key
+q: (optional) Search Query (Ingredients should be separated by commas). If this is omitted top rated recipes will be returned.
+sort: (optional) How the results should be sorted. See Below for details.
+page: (optional) Used to get additional results
+Get Recipe
+key: API Key
+rId: Id of desired recipe as returned by Search Query
+Search Sorting
+
+The Food2Fork API offers two kinds of sorting for queries. The first is by rating. This rating is based off of social media scores to determine the best recipes.
+sort=r
+The second is by trendingness. The most recent recipes from our publishers have a trend score based on how quickly they are gaining popularity.
+sort=t
+Pages (Search Only)
+
+Any request will return a maximum of 30 results. To get the next set of results send the same request again but with page = 2 
+The default if omitted is page = 1 
+Response Parameters
+
+The response is json encoded. Search
+count: Number of recipes in result (Max 30)
+recipes: List of Recipe Parameters ->
+	image_url: URL of the image
+	source_url: Original Url of the recipe on the publisher's site
+	f2f_url: Url of the recipe on Food2Fork.com
+	title: Title of the recipe
+	publisher: Name of the Publisher
+	publisher_url: Base url of the publisher
+	social_rank: The Social Ranking of the Recipe (As determined by our Ranking Algorithm)
+	page: The page number that is being returned (To keep track of concurrent requests)
+Sample Response
+
+Request: http://food2fork.com/api/search?key={API_KEY}&q=shredded%20chicken
+
+{
+"count": 1, 
+"recipes": [{
+"publisher": "Allrecipes.com",
+"social_rank": 99.81007979198002, 
+"f2f_url": "http://food2fork.com/F2F/recipes/view/29159", 
+"publisher_url": "http://allrecipes.com", 
+"title": "Slow-Cooker Chicken Tortilla Soup", 
+"source_url": "http://allrecipes.com/Recipe/Slow-Cooker-Chicken-Tortilla-Soup/Detail.aspx",
+"page":1}]
+}
+Get Recipe
+recipe: List of Recipe Parameters ->
+	image_url: URL of the image
+	source_url: Original Url of the recipe on the publisher's site
+	f2f_url: Url of the recipe on Food2Fork.com
+	title: Title of the recipe
+	publisher: Name of the Publisher
+	publisher_url: Base url of the publisher
+	social_rank: The Social Ranking of the Recipe (As determined by our Ranking Algorithm)
+	ingredients: The ingredients of this recipe
