@@ -47,3 +47,29 @@
   return false;
 
 });
+
+
+var ingredientTask = "chicken";
+
+function displaySeach(){
+
+  //$('#moviesView').empty();
+
+  var seachApi = $(this).attr('data-name');
+
+  var queryURL="http://food2fork.com/api/search?key=3ddf33388a85595eb6bcc15116a16e16&q=" + ingredientTask;
+
+  $.ajax({url: queryURL, method: 'GET'}).done(function(response) {
+
+    console.log(response);
+
+    var results = response.data;
+
+    
+
+  })
+};  
+
+
+displaySeach()
+
