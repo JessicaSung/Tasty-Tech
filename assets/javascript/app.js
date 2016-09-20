@@ -22,10 +22,10 @@ var ingredientCount = 0;
 		ingredientItem = ingredientItem.prepend(ingredientClose);
 
 		// add the button and paragraph to the page
-		$("#main").append(ingredientItem);
+		$("#list").append(ingredientItem);
 
 		// clear the textbox when done
-		$('#main').val("");
+		$('#list').val("");
 
 		// increment the the todoCount
 		ingredientCount++;
