@@ -9,7 +9,7 @@ var ingredientCount = 0;
 		console.log(ingredientTask);
 
 		// display user input in a paragraph
-		var ingredientItem = $('<p>');
+		var ingredientItem = $('<button>');
 		ingredientItem.attr("id", "item-" + ingredientCount);
 		ingredientItem.append(" " + ingredientTask);
 
@@ -36,13 +36,17 @@ var ingredientCount = 0;
 
 	});
 
+	// X Delete button functionality
 	$(document.body).on('click', '.checkbox', function(){
 
 		// Get the ingredientNumber of the button from its data attribute.
 		var ingredientNumber = $(this).data("ingredient");
 
-		// Empty the specific <p> element that previously held the ingredient item.
-		$("#item-" + ingredientNumber).empty();
+		// // Empty the specific <p> element that previously held the ingredient item.
+		// $("#item-" + ingredientNumber).empty();
+
+		// Remove button
+		$("#item-" + ingredientNumber).remove();
 
 	});
 
