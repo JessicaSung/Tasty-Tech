@@ -1,7 +1,7 @@
 // Make a ingredients list
 var ingredientCount = 0;
 
-	// Display user ingredients to page
+	// display user ingredients to page
 	$(document).on('click', '#addIngredient', function(){
 
 		// get the ingredient "value" from the textbox
@@ -33,32 +33,32 @@ var ingredientCount = 0;
 		// increment the the todoCount
 		ingredientCount++;
 
-		// Prevent Form from Refreshing (return false)
-	return false;
+		// prevent Form from Refreshing (return false)
+		return false;
 
 	});
 
-	// X Delete button functionality
+	// Delete button (X) functionality
 	$(document.body).on('click', '.checkbox', function(){
 
-		// Get the ingredientNumber of the button from its data attribute.
+		// get the ingredientNumber of the button from its data attribute.
 		var ingredientNumber = $(this).data("ingredient");
 
-		// // Empty the specific <p> element that previously held the ingredient item.
+		// // empty the specific <p> element that previously held the ingredient item.
 		// $("#item-" + ingredientNumber).empty();
 
-		// Remove button
+		// remove button
 		$("#item-" + ingredientNumber).remove();
 
 	});
 
 
-// AJAX call with ingredient button for gifs
+// AJAX call with ingredient button from spoonacular
 $(document.body).on('click', '.ingredientButton', function(){
 
 
 	var ingredient = $(this).data("user");
-	// var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&api_key=dc6zaTOxFJmzC&limit=1";
+	
 	var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=" + ingredient;
 
 	console.log(ingredient);
@@ -67,10 +67,7 @@ $(document.body).on('click', '.ingredientButton', function(){
 	  $.ajax({
             url: queryURL,
             method: 'GET',
-            beforeSend: function(xhr){xhr.setRequestHeader('X-Mashape-Key', 'H0b5sYxWgxmshQsh24XuzEO37FLZp1CxJbVjsnjmz7uj7v8W0z');}
-            // crossDomain: true,
-            // dataType: "JSONP",
-            // jsonp: false
+            beforeSend: function(xhr){xhr.setRequestHeader('X-Mashape-Key', 'H0b5sYxWgxmshQsh24XuzEO37FLZp1CxJbVjsnjmz7uj7v8W0z');}           
         })
         .done(function(response) {
             
@@ -78,8 +75,7 @@ $(document.body).on('click', '.ingredientButton', function(){
             console.log(queryURL);
 
             console.log(response);
-
-            // var results = response.data;
+            
 
             for (var j = 0; j < response.length; j++) {
 
@@ -100,6 +96,52 @@ $(document.body).on('click', '.ingredientButton', function(){
       	});
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&api_key=dc6zaTOxFJmzC&limit=1";
+
+
+
+// "http://food2fork.com/api/search?key=" + key + "&q=" + ingredient;
+// 3ddf33388a85595eb6bcc15116a16e16
+
+
+
+// Spoontacular MashApe API
+// H0b5sYxWgxmshQsh24XuzEO37FLZp1CxJbVjsnjmz7uj7v8W0z
+
+
+// var results = response.data;
+
+
+
+
+
+// Initialize Firebase
+// var config = {
+// apiKey: "AIzaSyB_VPm_7dN7gNGOUqyvQtlpo1EmcWrpvcU",
+// authDomain: "tasty-tech-f4e06.firebaseapp.com",
+// databaseURL: "https://tasty-tech-f4e06.firebaseio.com",
+// storageBucket: "",
+// messagingSenderId: "325466871965"
+// };
+// firebase.initializeApp(config);
+
+// VARIABLES
+// var database = firebase.database();
 
 
 
@@ -135,46 +177,3 @@ $(document.body).on('click', '.ingredientButton', function(){
            
 //       	});
 // });
-
-
-
-
-
-
-
-
-
-
-
-// "http://food2fork.com/api/search?key=" + key + "&q=" + ingredient;
-// 3ddf33388a85595eb6bcc15116a16e16
-
-
-
-// Spoontacular MashApe API
-// H0b5sYxWgxmshQsh24XuzEO37FLZp1CxJbVjsnjmz7uj7v8W0z
-
-
-
-
-
-// Initialize Firebase
-// var config = {
-// apiKey: "AIzaSyB_VPm_7dN7gNGOUqyvQtlpo1EmcWrpvcU",
-// authDomain: "tasty-tech-f4e06.firebaseapp.com",
-// databaseURL: "https://tasty-tech-f4e06.firebaseio.com",
-// storageBucket: "",
-// messagingSenderId: "325466871965"
-// };
-// firebase.initializeApp(config);
-
-// VARIABLES
-// var database = firebase.database();
-
-
-
-
-
-
-
-// AJAX call
