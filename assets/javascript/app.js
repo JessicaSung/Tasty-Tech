@@ -11,6 +11,8 @@ var ingredientCount = 0;
 		// display user input in a paragraph
 		var ingredientItem = $('<button>');
 		ingredientItem.attr("id", "item-" + ingredientCount);
+		ingredientItem.addClass("ingredientButton");
+		ingredientItem.attr("data-user", ingredientTask);
 		ingredientItem.append(" " + ingredientTask);
 
 		// create a button that can be clicked to delete ingredient
@@ -51,8 +53,49 @@ var ingredientCount = 0;
 	});
 
 
+// AJAX call with ingredient button for gifs
+$(document.body).on('click', '.ingredientButton', function(){
 
 
+	var ingredient = $(this).data("user");
+	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&api_key=dc6zaTOxFJmzC&limit=1";
+
+	console.log(ingredient);
+	console.log(queryURL);
+
+	  $.ajax({
+            url: queryURL,
+            method: 'GET',
+            // crossDomain: true,
+            // dataType: "JSONP",
+            // jsonp: false
+        })
+        .done(function(response) {
+            
+
+            console.log(queryURL);
+
+            console.log(response);
+
+            var results = response.data;
+
+            for (var j = 0; j < results.length; j++) {
+
+	            var ingredientsDiv = $('<div>');
+	            ingredientsDiv.addClass('col-md-4');
+	            ingredientsDiv.addClass('height');
+
+	            var ingredientImage = $('<img>');
+	            ingredientImage.attr('src', results[j].images.fixed_height.url);
+	            ingredientImage.addClass('ingredientImage');
+
+	            ingredientsDiv.append(ingredientImage);
+
+	            $('#dishes').append(ingredientsDiv);
+	        }
+           
+      	});
+});
 
 
 
