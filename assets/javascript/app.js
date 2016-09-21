@@ -58,7 +58,8 @@ $(document.body).on('click', '.ingredientButton', function(){
 
 
 	var ingredient = $(this).data("user");
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&api_key=dc6zaTOxFJmzC&limit=1";
+	// var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&api_key=dc6zaTOxFJmzC&limit=1";
+	var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=" + ingredient;
 
 	console.log(ingredient);
 	console.log(queryURL);
@@ -66,6 +67,7 @@ $(document.body).on('click', '.ingredientButton', function(){
 	  $.ajax({
             url: queryURL,
             method: 'GET',
+            beforeSend: function(xhr){xhr.setRequestHeader('X-Mashape-Key', 'H0b5sYxWgxmshQsh24XuzEO37FLZp1CxJbVjsnjmz7uj7v8W0z');}
             // crossDomain: true,
             // dataType: "JSONP",
             // jsonp: false
@@ -77,17 +79,18 @@ $(document.body).on('click', '.ingredientButton', function(){
 
             console.log(response);
 
-            var results = response.data;
+            // var results = response.data;
 
-            for (var j = 0; j < results.length; j++) {
+            for (var j = 0; j < response.length; j++) {
 
 	            var ingredientsDiv = $('<div>');
 	            ingredientsDiv.addClass('col-md-4');
 	            ingredientsDiv.addClass('height');
 
 	            var ingredientImage = $('<img>');
-	            ingredientImage.attr('src', results[j].images.fixed_height.url);
+	            ingredientImage.attr('src', response[j].image);
 	            ingredientImage.addClass('ingredientImage');
+	            ingredientImage.addClass('img-responsive');
 
 	            ingredientsDiv.append(ingredientImage);
 
