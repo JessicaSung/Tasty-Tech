@@ -87,6 +87,7 @@ $(document.body).on('click', '.ingredientButton', function(){
 	            ingredientImage.attr('src', response[j].image);
 	            ingredientImage.addClass('ingredientImage');
 	            ingredientImage.addClass('img-responsive');
+	            ingredientImage.attr('data-recipeId', response[j].id);
 
 	            ingredientsDiv.append(ingredientImage);
 
@@ -97,7 +98,46 @@ $(document.body).on('click', '.ingredientButton', function(){
 });
 
 
+$(document).on('click','.ingredientImage', function(){
 
+	var recipeID = $(this).attr('data-recipeId');
+
+	console.log(recipeID);
+
+
+
+	var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + recipeID + "/analyzedInstructions";
+
+	$.ajax({
+            url: queryURL,
+            method: 'GET',
+            beforeSend: function(xhr){xhr.setRequestHeader('X-Mashape-Key', 'H0b5sYxWgxmshQsh24XuzEO37FLZp1CxJbVjsnjmz7uj7v8W0z');}           
+        })
+        .done(function(response) {
+            
+
+            console.log(queryURL);
+
+            console.log(response);
+
+            $('#recipes').empty();
+			
+			for (var i = 0; i < response[0].steps.length; i++) {
+				var stepN = response[0].steps[i].number;
+				var step = response[0].steps[i].step;
+				var stepByStep = $('<p>');
+				stepByStep.html('<br>' + stepN + ',  ' + step + '<br>');
+				$('#recipes').append(stepByStep);
+
+
+			};           
+
+            
+           
+      	});
+
+
+});
 
 
 
