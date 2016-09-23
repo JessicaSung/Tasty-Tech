@@ -16,57 +16,6 @@ var database = firebase.database();
 var ingredientCount = 0;
 var likesCounter = 0;
 
-	// display user ingredients to page
-	// $(document).on('click', '#addIngredient', function(){
-
-	// 	// get the ingredient "value" from the textbox
-	// 	var ingredientTask = $('#ingredient').val().trim();
-	// 	console.log(ingredientTask);
-
-	// 	// display user input in a paragraph
-	// 	var ingredientItem = $('<button>');
-	// 	ingredientItem.attr("id", "item-" + ingredientCount);
-	// 	ingredientItem.addClass("ingredientButton");
-	// 	ingredientItem.attr("data-user", ingredientTask);
-	// 	ingredientItem.append(" " + ingredientTask);
-
-	// 	// create a button that can be clicked to delete ingredient
-	// 	var ingredientClose = $("<button>");
-	// 	ingredientClose.attr("data-ingredient", ingredientCount);
-	// 	ingredientClose.addClass("checkbox");
-	// 	ingredientClose.append("X");
-
-	// 	// add the X button in front of the user input paragraph
-	// 	ingredientItem = ingredientItem.prepend(ingredientClose);
-
-	// 	// add the button and paragraph to the page
-	// 	$("#list").append(ingredientItem);
-
-	// 	// clear the textbox when done
-	// 	$('#ingredient').val("");
-
-	// 	// increment the the todoCount
-	// 	ingredientCount++;
-
-	// 	// prevent Form from Refreshing (return false)
-	// 	return false;
-
-	// });
-
-	// // Delete button (X) functionality
-	// $(document.body).on('click', '.checkbox', function(){
-
-	// 	// get the ingredientNumber of the button from its data attribute.
-	// 	var ingredientNumber = $(this).data("ingredient");
-
-	// 	// // empty the specific <p> element that previously held the ingredient item.
-	// 	// $("#item-" + ingredientNumber).empty();
-
-	// 	// remove button
-	// 	$("#item-" + ingredientNumber).remove();
-
-	// });
-
 
 // AJAX call with ingredient button from spoonacular
 $(document.body).on('click', '#addIngredient', function(){
@@ -117,12 +66,9 @@ $(document.body).on('click', '#addIngredient', function(){
 
 	            $('#dishes').append(ingredientsDiv);
 	        }
-
-	       
-           
+      
       	});
-
-
+      	
       	return false;
 });
 
@@ -258,3 +204,57 @@ $(document).on('click','.ingredientImage', function(){
 	           
 	//       	});
 	// });
+
+
+
+
+	// display user ingredients to page
+		// $(document).on('click', '#addIngredient', function(){
+
+		// 	// get the ingredient "value" from the textbox
+		// 	var ingredientTask = $('#ingredient').val().trim();
+		// 	console.log(ingredientTask);
+
+		// 	// display user input in a paragraph
+		// 	var ingredientItem = $('<button>');
+		// 	ingredientItem.attr("id", "item-" + ingredientCount);
+		// 	ingredientItem.addClass("ingredientButton");
+		// 	ingredientItem.attr("data-user", ingredientTask);
+		// 	ingredientItem.append(" " + ingredientTask);
+
+		// 	// create a button that can be clicked to delete ingredient
+		// 	var ingredientClose = $("<button>");
+		// 	ingredientClose.attr("data-ingredient", ingredientCount);
+		// 	ingredientClose.addClass("checkbox");
+		// 	ingredientClose.append("X");
+
+		// 	// add the X button in front of the user input paragraph
+		// 	ingredientItem = ingredientItem.prepend(ingredientClose);
+
+		// 	// add the button and paragraph to the page
+		// 	$("#list").append(ingredientItem);
+
+		// 	// clear the textbox when done
+		// 	$('#ingredient').val("");
+
+		// 	// increment the the todoCount
+		// 	ingredientCount++;
+
+		// 	// prevent Form from Refreshing (return false)
+		// 	return false;
+
+		// });
+
+		// // Delete button (X) functionality
+		// $(document.body).on('click', '.checkbox', function(){
+
+		// 	// get the ingredientNumber of the button from its data attribute.
+		// 	var ingredientNumber = $(this).data("ingredient");
+
+		// 	// // empty the specific <p> element that previously held the ingredient item.
+		// 	// $("#item-" + ingredientNumber).empty();
+
+		// 	// remove button
+		// 	$("#item-" + ingredientNumber).remove();
+
+		// });

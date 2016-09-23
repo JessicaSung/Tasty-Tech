@@ -19,3 +19,8 @@
 	clear: both;
 }
 
+
+/******************* Bootstrap button classes *******************/
+.btn-primary.raised {
+	box-shadow: 0 3px 0 0 #007299;
+}
