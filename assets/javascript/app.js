@@ -1,5 +1,20 @@
+// Initialize Firebase
+var config = {
+	apiKey: "AIzaSyB_VPm_7dN7gNGOUqyvQtlpo1EmcWrpvcU",
+	authDomain: "tasty-tech-f4e06.firebaseapp.com",
+	databaseURL: "https://tasty-tech-f4e06.firebaseio.com",
+	storageBucket: "",
+	messagingSenderId: "325466871965"
+};
+firebase.initializeApp(config);
+
+//VARIABLES
+var database = firebase.database();
+
+
 // Make a ingredients list
 var ingredientCount = 0;
+var likesCounter = 0;
 
 	// display user ingredients to page
 	// $(document).on('click', '#addIngredient', function(){
@@ -91,9 +106,11 @@ $(document.body).on('click', '#addIngredient', function(){
 	            ingredientImage.addClass('img-responsive');
 	            ingredientImage.attr('data-recipeId', response[j].id);
 
-	            var likesCounter = 0;
-	            var likes = $('<p>');
-	            likes.html("Likes: " + likesCounter);
+	            
+	            var likes = $('<button>');
+	            likes.addClass('btn btn-primary');
+	            likes.addClass('likesButton');
+	            likes.html("Like: " + likesCounter);
 	            
 
 	            ingredientsDiv.html(title).append(ingredientImage).append(likes);
@@ -109,7 +126,44 @@ $(document.body).on('click', '#addIngredient', function(){
       	return false;
 });
 
+// Clicking like button increments the number of likes in the firebase database
+$(document).on('click', '.likesButton', function(){
+	likesCounter++;
+	console.log(likesCounter);
+	
+	database.ref().set({
+        likesCounter: likesCounter
+    });
 
+});
+
+
+// Updating likes on the page with the value in the firebase database
+database.ref().on("value", function(snapshot) {
+
+	// Print the current data to the console.
+    console.log(snapshot.val());
+
+    // Change the likesCounter to match the data in the database
+    likesCounter = snapshot.val().likesCounter;
+
+    // Change the html to reflect the current likesCounter
+    $(".likesButton").html("Like: " + likesCounter);
+
+    // Log the value of the likesCounter
+    console.log(likesCounter);
+
+    // If any errors are experienced, log them to console.
+}, function (errorObject) {
+
+    console.log("The read failed: " + errorObject.code);
+
+});
+
+
+
+
+// Click the dish to find the recipe steps
 $(document).on('click','.ingredientImage', function(){
 
 	var recipeID = $(this).attr('data-recipeId');
@@ -182,18 +236,7 @@ $(document).on('click','.ingredientImage', function(){
 
 
 
-// Initialize Firebase
-// var config = {
-// apiKey: "AIzaSyB_VPm_7dN7gNGOUqyvQtlpo1EmcWrpvcU",
-// authDomain: "tasty-tech-f4e06.firebaseapp.com",
-// databaseURL: "https://tasty-tech-f4e06.firebaseio.com",
-// storageBucket: "",
-// messagingSenderId: "325466871965"
-// };
-// firebase.initializeApp(config);
 
-// VARIABLES
-// var database = firebase.database();
 
 
 
