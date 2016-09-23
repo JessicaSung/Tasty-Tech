@@ -113,7 +113,7 @@ $(document.body).on('click', '#addIngredient', function(){
 	            likes.html("Like: " + likesCounter);
 	            
 
-	            ingredientsDiv.html(title).append(ingredientImage).append(likes);
+	            ingredientsDiv.html("<h5>" + title + "</h5>").append(ingredientImage).append(likes);
 
 	            $('#dishes').append(ingredientsDiv);
 	        }
@@ -125,6 +125,8 @@ $(document.body).on('click', '#addIngredient', function(){
 
       	return false;
 });
+
+
 
 // Clicking like button increments the number of likes in the firebase database
 $(document).on('click', '.likesButton', function(){
@@ -138,7 +140,9 @@ $(document).on('click', '.likesButton', function(){
 });
 
 
-// Updating likes on the page with the value in the firebase database
+
+
+// Updating likes button on the page with the value in the firebase database
 database.ref().on("value", function(snapshot) {
 
 	// Print the current data to the console.
@@ -157,7 +161,6 @@ database.ref().on("value", function(snapshot) {
 }, function (errorObject) {
 
     console.log("The read failed: " + errorObject.code);
-
 });
 
 
@@ -195,14 +198,8 @@ $(document).on('click','.ingredientImage', function(){
 				stepByStep.html('<br>' + stepN + ',  ' + step + '<br>');
 				$('#recipes').append(stepByStep);
 
-
-			};           
-
-            
-           
+			}       
       	});
-
-
 });
 
 
@@ -216,59 +213,48 @@ $(document).on('click','.ingredientImage', function(){
 
 
 
+// Unused code below
 
-// var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&api_key=dc6zaTOxFJmzC&limit=1";
-
-
-
-// "http://food2fork.com/api/search?key=" + key + "&q=" + ingredient;
-// 3ddf33388a85595eb6bcc15116a16e16
+	// var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&api_key=dc6zaTOxFJmzC&limit=1";
 
 
+	// "http://food2fork.com/api/search?key=" + key + "&q=" + ingredient;
+	// 3ddf33388a85595eb6bcc15116a16e16
 
-// Spoontacular MashApe API
-// H0b5sYxWgxmshQsh24XuzEO37FLZp1CxJbVjsnjmz7uj7v8W0z
+
+	// Spoontacular MashApe API
+	// H0b5sYxWgxmshQsh24XuzEO37FLZp1CxJbVjsnjmz7uj7v8W0z
 
 
-// var results = response.data;
-
+	// var results = response.data;
 
 
 
+	// // AJAX call on one ingredient
+	// $(document).on('click', '#addIngredient', function(){
+	// 	var ingredient = $('#ingredient').val().trim();
+	// 	var key = "3ddf33388a85595eb6bcc15116a16e16";
+	// 	var queryURL = "http://food2fork.com/api/search?key=" + key + "&q=" + ingredient;
 
+	// 	console.log(ingredient);
+	// 	console.log(key);
+	// 	console.log(queryURL);
 
+	// 	  $.ajax({
+	//             url: queryURL,
+	//             method: 'GET',
+	//             // crossDomain: true,
+	//             // dataType: "JSONP",
+	//             // jsonp: false
+	//         })
+	//         .done(function(response) {
+	            
 
+	//             console.log(queryURL);
 
+	//             console.log(response);
 
-
-
-
-
-// // AJAX call on one ingredient
-// $(document).on('click', '#addIngredient', function(){
-// 	var ingredient = $('#ingredient').val().trim();
-// 	var key = "3ddf33388a85595eb6bcc15116a16e16";
-// 	var queryURL = "http://food2fork.com/api/search?key=" + key + "&q=" + ingredient;
-
-// 	console.log(ingredient);
-// 	console.log(key);
-// 	console.log(queryURL);
-
-// 	  $.ajax({
-//             url: queryURL,
-//             method: 'GET',
-//             // crossDomain: true,
-//             // dataType: "JSONP",
-//             // jsonp: false
-//         })
-//         .done(function(response) {
-            
-
-//             console.log(queryURL);
-
-//             console.log(response);
-
-//             var results = response.data;
-           
-//       	});
-// });
+	//             var results = response.data;
+	           
+	//       	});
+	// });
