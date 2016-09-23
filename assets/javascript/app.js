@@ -11,8 +11,72 @@ firebase.initializeApp(config);
 //VARIABLES
 var database = firebase.database();
 
+var nameInput = "";
+var dishNameInput = "";
+var ingredientsInput = "";
+var preparationInput = "";
 
-// Make a ingredients list
+
+// FUNCTIONS + EVENTS
+$(document).on('click', '#addRecipe', function() {
+	nameInput = $('#nameInput').val().trim();
+	dishNameInput = $('#dishInput').val().trim();
+	ingredientsInput = $('#ingredientsInput').val().trim();
+	preparationInput  = $('#preparationInput').val().trim();
+
+	console.log(nameInput);
+	console.log(dishNameInput);
+	console.log(ingredientsInput);
+	console.log(preparationInput);
+
+	database.ref().push({
+		nameInput: nameInput,
+		dishNameInput: dishNameInput,
+		ingredientsInput: ingredientsInput,
+		preparationInput: preparationInput
+	});
+
+    return false;
+});
+
+
+// MAIN PROCESS + INITIAL CODE
+  database.ref().on("child_added", function(snapshot) {
+    console.log(snapshot.val());
+
+    // update the variable with data from the database
+    nameInput = snapshot.val().nameInput;
+	dishNameInput = snapshot.val().dishNameInput;
+	ingredientsInput = snapshot.val().ingredientsInput;
+	preparationInput  = snapshot.val().preparationInput;
+
+	 // add table
+    var tr = $('<tr>');
+    var a = $('<td>');
+    var b = $('<td>');
+    var c = $('<td>');
+    var d = $('<td>');
+    
+    a.append(nameInput);
+    b.append(dishNameInput);
+    c.append(ingredientsInput);
+    d.append(preparationInput);
+    
+    tr.append(a).append(b).append(c).append(d);
+    $('#newRecipes').append(tr);
+
+
+    }, function (errorObject) {
+
+    // In case of error this will print the error
+      console.log("The read failed: " + errorObject.code);
+  
+  });
+
+
+
+
+// Ingredients VARIABLES
 var ingredientCount = 0;
 var likesCounter = 0;
 
