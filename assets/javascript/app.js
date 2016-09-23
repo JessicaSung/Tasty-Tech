@@ -83,13 +83,15 @@ $(document.body).on('click', '.ingredientButton', function(){
 	            ingredientsDiv.addClass('col-md-4');
 	            ingredientsDiv.addClass('height');
 
+	            var title = response[j].title;
+
 	            var ingredientImage = $('<img>');
 	            ingredientImage.attr('src', response[j].image);
 	            ingredientImage.addClass('ingredientImage');
 	            ingredientImage.addClass('img-responsive');
 	            ingredientImage.attr('data-recipeId', response[j].id);
 
-	            ingredientsDiv.append(ingredientImage);
+	            ingredientsDiv.html(title).append(ingredientImage);
 
 	            $('#dishes').append(ingredientsDiv);
 	        }
