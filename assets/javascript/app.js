@@ -91,7 +91,12 @@ $(document.body).on('click', '#addIngredient', function(){
 	            ingredientImage.addClass('img-responsive');
 	            ingredientImage.attr('data-recipeId', response[j].id);
 
-	            ingredientsDiv.html(title).append(ingredientImage);
+	            var likesCounter = 0;
+	            var likes = $('<p>');
+	            likes.html("Likes: " + likesCounter);
+	            
+
+	            ingredientsDiv.html(title).append(ingredientImage).append(likes);
 
 	            $('#dishes').append(ingredientsDiv);
 	        }
