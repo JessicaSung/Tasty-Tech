@@ -6,7 +6,7 @@
 
 .height {
 	height: 250px;
-	margin-top: 20px;
+	margin-bottom: 60px;
 }
 
 .text {
@@ -15,6 +15,7 @@
   font-weight: bolder;
 }
 
-.float {
+.unfloat {
 	clear: both;
 }
+
