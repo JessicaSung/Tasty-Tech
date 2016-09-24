@@ -19,6 +19,9 @@
 	clear: both;
 }
 
+.likesButton {
+	display: block;
+}
 
 /******************* Bootstrap button classes *******************/
 .btn-primary.raised {
