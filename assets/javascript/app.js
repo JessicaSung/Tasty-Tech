@@ -81,7 +81,7 @@ var ingredientCount = 0;
 var likesCounter = 0;
 
 
-// AJAX call with ingredient button from spoonacular
+// AJAX call dishes with ingredients from spoonacular
 $(document.body).on('click', '#addIngredient', function(){
 
 
@@ -105,11 +105,22 @@ $(document.body).on('click', '#addIngredient', function(){
             console.log(response);
             
 
+            // adding dishes to the page
             for (var j = 0; j < response.length; j++) {
 
 	            var ingredientsDiv = $('<div>');
 	            ingredientsDiv.addClass('col-md-4');
 	            ingredientsDiv.addClass('height');
+
+	            // If there are more than 3 dishes returned, add the ones more than 3 in a new row
+	            if ($('#dishes > .row > div.col-md-4') > 3) {
+					var newRow = $('<div>');
+					newRow.addClass('row');
+
+					// add the row to the page
+					$('#dishes').append(newRow);
+	            }
+	            
 
 	            var title = response[j].title;
 
@@ -126,7 +137,7 @@ $(document.body).on('click', '#addIngredient', function(){
 	            likes.html("Like: " + likesCounter);
 	            
 
-	            ingredientsDiv.html("<h5>" + title + "</h5>").append(ingredientImage).append(likes);
+	            ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
 
 	            $('#dishes').append(ingredientsDiv);
 	        }

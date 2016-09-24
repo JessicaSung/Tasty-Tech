@@ -1,11 +1,11 @@
 /******************* other *******************/
-#answerImage img {
+#answe/*rImage img {
   width: 200px;
   height: 200px;
-}
+}*/
 
 .height {
-	height: 250px;
+	/*height: 250px;*/
 	margin-bottom: 60px;
 }
 
@@ -19,9 +19,7 @@
 	clear: both;
 }
 
-.likesButton {
-	display: block;
-}
+
 
 /******************* Bootstrap button classes *******************/
 .btn-primary.raised {
