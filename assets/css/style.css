@@ -1,9 +1,4 @@
 /******************* other *******************/
-#answe/*rImage img {
-  width: 200px;
-  height: 200px;
-}*/
-
 .height {
 	/*height: 250px;*/
 	margin-bottom: 60px;
@@ -19,9 +14,35 @@
 	clear: both;
 }
 
+#dishes {
+    text-align: left;
+}
+#dishes > .col-md-4{
+  display:inline-block;
+  float:none;
+  text-align:center;
+}
+
 
 
 /******************* Bootstrap button classes *******************/
 .btn-primary.raised {
 	box-shadow: 0 3px 0 0 #007299;
 }
+
+
+
+/******************* media queries *******************/
+@media screen and (min-width:768px) and (max-width:991px) {
+    #dishes {
+        text-align: center;
+    }
+}
+
+
+
+/******************* unused code *******************/
+/*#answerImage img {
+  width: 200px;
+  height: 200px;
+}*/
