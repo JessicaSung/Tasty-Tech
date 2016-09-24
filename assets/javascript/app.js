@@ -113,13 +113,13 @@ $(document.body).on('click', '#addIngredient', function(){
 	            ingredientsDiv.addClass('height');
 
 	            // If there are more than 3 dishes returned, add the ones more than 3 in a new row
-	            if ($('#dishes > .row > div.col-md-4') > 3) {
-					var newRow = $('<div>');
-					newRow.addClass('row');
+	    //         if ($('#dishes > .row > div.col-md-4') > 3) {
+					// var newRow = $('<div>');
+					// newRow.addClass('row');
 
-					// add the row to the page
-					$('#dishes').append(newRow);
-	            }
+					// // add the row to the page
+					// $('#dishes').append(newRow);
+	    //         }
 	            
 
 	            var title = response[j].title;
