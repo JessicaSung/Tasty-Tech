@@ -88,7 +88,7 @@ $(document.body).on('click', '#addIngredient', function() {
     var ingredient = $('#ingredient').val().trim();
     var cuisineinput = $('#cuisine').val().trim();
     // var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=" + ingredient;
-    var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addRecipeInformation=false&cuisine=' + cuisineinput + '&includeIngredients=' + ingredient + '&limitLicense=false&&number=10&offset=0&query=' + ingredient + '&ranking=1&type=main+course'
+    var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addRecipeInformation=false&cuisine=' + cuisineinput + '&includeIngredients=' + ingredient + '&limitLicense=false&&number=5&offset=0&query=' + ingredient + '&ranking=1&type=main+course'
 
     console.log(ingredient);
     console.log(cuisineinput);
