@@ -138,6 +138,13 @@ $(document.body).on('click', '#addIngredient', function() {
                 likes.addClass('likesButton');
                 likes.html("Like: " + likesCounter);
 
+                //button like and id for like increment use---------
+
+                likes.attr('data-like', 0);
+                likes.attr('data-id', response.results[j].id);
+
+                //---------------------------------
+
 
                 ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
 
@@ -152,39 +159,66 @@ $(document.body).on('click', '#addIngredient', function() {
 
 
 // Clicking like button increments the number of likes in the firebase database
-$(document).on('click', '.likesButton', function() {
-    likesCounter++;
-    console.log(likesCounter);
 
-    database.ref().set({
-        likesCounter: likesCounter
+// $(document).on('click', '.likesButton', function() {
+//     likesCounter++;
+//     console.log(likesCounter);
+
+//     database.ref().set({
+//         likesCounter: likesCounter
+//     });
+
+// });
+
+//--------------------------------------------
+
+$(document).on('click', '.likesButton', function(){
+    var currentlikes = $(this).data("like");
+    var currentId = $(this).data("id");
+
+    console.log("currentId:  " + currentId);
+
+    currentlikes = currentlikes + 1;
+
+    $(this).data('like', currentlikes);
+    $(this).html("Like: " + currentlikes);
+    //likesCounter++;
+    console.log("currentlikes=  " + currentlikes);
+
+    //var newvar = recipeID + "like"
+    
+    database.ref('/recipeIdTab' + currentId).update({
+       // currentLikes: likesCounter;
+        currentlikes: currentlikes,
     });
 
 });
 
+//--------------------------------------------
 
 
 
-// Updating likes button on the page with the value in the firebase database
-database.ref().on("value", function(snapshot) {
 
-    // Print the current data to the console.
-    console.log(snapshot.val());
+// // Updating likes button on the page with the value in the firebase database
+// database.ref().on("value", function(snapshot) {
 
-    // Change the likesCounter to match the data in the database
-    likesCounter = snapshot.val().likesCounter;
+//     // Print the current data to the console.
+//     console.log(snapshot.val());
 
-    // Change the html to reflect the current likesCounter
-    $(".likesButton").html("Like: " + likesCounter);
+//     // Change the likesCounter to match the data in the database
+//     likesCounter = snapshot.val().likesCounter;
 
-    // Log the value of the likesCounter
-    console.log(likesCounter);
+//     // Change the html to reflect the current likesCounter
+//     $(".likesButton").html("Like: " + likesCounter);
 
-    // If any errors are experienced, log them to console.
-}, function(errorObject) {
+//     // Log the value of the likesCounter
+//     console.log(likesCounter);
 
-    console.log("The read failed: " + errorObject.code);
-});
+//     // If any errors are experienced, log them to console.
+// }, function(errorObject) {
+
+//     console.log("The read failed: " + errorObject.code);
+// });
 
 
 
