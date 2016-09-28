@@ -23,6 +23,23 @@
 </head>
 <body>
 
+    <header>
+        <!-- nav bar -->        
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Find A Recipe</a></li>
+                        <li><a href="user-recipes.html">User Submitted Recipes</a></li>
+                    </ul>         
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>        
+    </header>
+
+
+
 	<!-- page heading -->
     <div class="brand"><img src="assets/images/tastytech_logo_2.png"></div>
     
@@ -71,72 +88,6 @@
             </div>
         </div>
 
-        
-        <div class="box">
-
-            <!-- row 3 -->
-            <div class="row">                        
-                <div class="col-md-12">
-                    <!-- user recipes -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><strong>User Submitted Recipes</strong></h3>
-                        </div>
-              
-                        <div class="panel-body">
-                            <table class="table" id="recipesDisplay">
-                                <thead>
-                                    <th>User Name</th>
-                                    <th>Dish Name</th>
-                                    <th>Ingredients</th>
-                                    <th>Preparation Instructions</th>
-                                </thead>
-                                <tbody id="newRecipes"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Panel for users to submit recipes  -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><strong>Add a Recipe</strong></h3>
-                        </div>
-                    
-                        <div class="panel-body">        
-                            <form>
-                                <!-- input textboxes -->
-                                <div class="form-group">
-                                    <label for="">Your Name</label>
-                                    <input type="text" class="form-control" id="nameInput">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="">Name Your Dish</label>
-                                    <input type="text" class="form-control" id="dishInput">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="">Ingredients</label>
-                                    <input type="text" class="form-control" id="ingredientsInput">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="">Preparation Instructions</label>
-                                    <input type="text" class="form-control" id="preparationInput">
-                                </div>
-                                
-                                <!-- submit button -->
-                                <button type="submit" class="btn btn-primary" id="addRecipe">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-        <!-- end of box -->
-        </div>
 
     <!-- end of main content wrapper -->
     </div>
