@@ -16,69 +16,13 @@ var dishNameInput = "";
 var ingredientsInput = "";
 var preparationInput = "";
 
+var dishesID = [];
 
-// FUNCTIONS + EVENTS
-$(document).on('click', '#addRecipe', function() {
-    nameInput = $('#nameInput').val().trim();
-    dishNameInput = $('#dishInput').val().trim();
-    ingredientsInput = $('#ingredientsInput').val().trim();
-    preparationInput = $('#preparationInput').val().trim();
-
-    console.log(nameInput);
-    console.log(dishNameInput);
-    console.log(ingredientsInput);
-    console.log(preparationInput);
-
-    database.ref().push({
-        nameInput: nameInput,
-        dishNameInput: dishNameInput,
-        ingredientsInput: ingredientsInput,
-        preparationInput: preparationInput
-    });
-
-    return false;
-});
-
-
-// MAIN PROCESS + INITIAL CODE
-database.ref().on("child_added", function(snapshot) {
-    console.log(snapshot.val());
-
-    // update the variable with data from the database
-    nameInput = snapshot.val().nameInput;
-    dishNameInput = snapshot.val().dishNameInput;
-    ingredientsInput = snapshot.val().ingredientsInput;
-    preparationInput = snapshot.val().preparationInput;
-
-    // add table
-    var tr = $('<tr>');
-    var a = $('<td>');
-    var b = $('<td>');
-    var c = $('<td>');
-    var d = $('<td>');
-
-    a.append(nameInput);
-    b.append(dishNameInput);
-    c.append(ingredientsInput);
-    d.append(preparationInput);
-
-    tr.append(a).append(b).append(c).append(d);
-    $('#newRecipes').append(tr);
-
-
-}, function(errorObject) {
-
-    // In case of error this will print the error
-    console.log("The read failed: " + errorObject.code);
-
-});
+// var currentlikes = 0;
 
 
 
 
-// Ingredients VARIABLES
-var ingredientCount = 0;
-var likesCounter = 0;
 
 
 // AJAX call dishes with ingredients from spoonacular
@@ -106,6 +50,7 @@ $(document.body).on('click', '#addIngredient', function() {
 
             console.log(response.results);
 
+            dishesID = [];
 
             // adding dishes to the page
             for (var j = 0; j < response.results.length; j++) {
@@ -114,14 +59,14 @@ $(document.body).on('click', '#addIngredient', function() {
                 ingredientsDiv.addClass('col-md-4');
                 ingredientsDiv.addClass('height');
 
-                // If there are more than 3 dishes returned, add the ones more than 3 in a new row
-                //         if ($('#dishes > .row > div.col-md-4') > 3) {
-                // var newRow = $('<div>');
-                // newRow.addClass('row');
+                    // If there are more than 3 dishes returned, add the ones more than 3 in a new row
+                    //         if ($('#dishes > .row > div.col-md-4') > 3) {
+                    // var newRow = $('<div>');
+                    // newRow.addClass('row');
 
-                // // add the row to the page
-                // $('#dishes').append(newRow);
-                //         }
+                    // // add the row to the page
+                    // $('#dishes').append(newRow);
+                    //         }
 
 
                 var title = response.results[j].title;
@@ -136,7 +81,7 @@ $(document.body).on('click', '#addIngredient', function() {
                 var likes = $('<button>');
                 likes.addClass('btn btn-primary');
                 likes.addClass('likesButton');
-                likes.html("Like: " + likesCounter);
+                likes.html("Like: " + currentlikes);
 
                 //button like and id for like increment use---------
 
@@ -145,6 +90,10 @@ $(document.body).on('click', '#addIngredient', function() {
 
                 //---------------------------------
 
+                // push recipe ID's to array dishesID
+                dishesID.push(response.results[j].id);
+
+                var currentlikes = 0;
 
                 ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
 
@@ -157,68 +106,103 @@ $(document.body).on('click', '#addIngredient', function() {
 });
 
 
+                // Clicking like button increments the number of likes in the firebase database
 
-// Clicking like button increments the number of likes in the firebase database
+                // $(document).on('click', '.likesButton', function() {
+                //     currentlikes++;
+                //     console.log(currentlikes);
 
-// $(document).on('click', '.likesButton', function() {
-//     likesCounter++;
-//     console.log(likesCounter);
+                //     database.ref().set({
+                //         currentlikes: currentlikes
+                //     });
 
-//     database.ref().set({
-//         likesCounter: likesCounter
-//     });
-
-// });
+                // });
 
 //--------------------------------------------
 
+// Like button functionality locally
 $(document).on('click', '.likesButton', function(){
-    var currentlikes = $(this).data("like");
+    currentlikes = $(this).data("like");
     var currentId = $(this).data("id");
-
     console.log("currentId:  " + currentId);
 
     currentlikes = currentlikes + 1;
 
     $(this).data('like', currentlikes);
-    $(this).html("Like: " + currentlikes);
-    //likesCounter++;
-    console.log("currentlikes=  " + currentlikes);
-
-    //var newvar = recipeID + "like"
     
-    database.ref('/recipeIdTab' + currentId).update({
-       // currentLikes: likesCounter;
-        currentlikes: currentlikes,
+
+                //var newvar = recipeID + "like"
+                
+                // database.ref('/recipeIdTab' + currentId).update({
+                //     currentlikes: currentlikes,
+                // });
+
+
+    // Storing Like button data on firebase
+    database.ref('/recipeIdTab' + currentId).set({
+        currentlikes: currentlikes
     });
+    
+
+    // Updating the Like counter in firebase and then displaying it on the page
+    database.ref().on("value", function(snapshot) {
+
+        // Then we console.log the value of snapshot
+        console.log(snapshot.val());
+
+        // comparing the array of recipe ID's from the AJAX call (after the call, before clicking like) to the snapshot (update, aka clicking like)
+        for (var key in snapshot.val()) {
+            if (snapshot.val().hasOwnProperty(key)) {
+                console.log(key + " -> " + snapshot.val()[key]);
+                console.log(snapshot.val()[key]);
+            }
+        }
+
+
+        // // Then we change the html associated with the number.        
+        // $('.likesButton').html("Like: " + currentlikes);
+        // console.log("currentlikes=  " + currentlikes);
+        
+        //         // Then update the clickCounter variable with data from the database. 
+        //         // ???
+        //         // currentlikes = snapshot.val().currentlikes;
+        //         // $('likesButton').html("Like: " + currentlikes);
+
+        //         // If there is an error that Firebase runs into -- it will be stored in the "errorObject" <-- can name this anything we want
+    
+    }, function (errorObject) {
+
+        // In case of error this will print the error
+        console.log("The read failed: " + errorObject.code);
+    
+    });
+
 
 });
 
 //--------------------------------------------
 
 
+                // // Updating likes button on the page with the value in the firebase database
+                // database.ref().on("value", function(snapshot) {
 
+                //     // Print the current data to the console.
+                //     console.log(snapshot.val());
 
-// // Updating likes button on the page with the value in the firebase database
-// database.ref().on("value", function(snapshot) {
+                //     // Change the currentlikes to match the data in the database
+                //     currentlikes = snapshot.val().currentlikes;
 
-//     // Print the current data to the console.
-//     console.log(snapshot.val());
+                //     // Change the html to reflect the current currentlikes
+                //     $(".likesButton").html("Like: " + currentlikes);
 
-//     // Change the likesCounter to match the data in the database
-//     likesCounter = snapshot.val().likesCounter;
+                //     // Log the value of the currentlikes
+                //     console.log(currentlikes);
 
-//     // Change the html to reflect the current likesCounter
-//     $(".likesButton").html("Like: " + likesCounter);
+                //     // If any errors are experienced, log them to console.
+                // }, function(errorObject) {
 
-//     // Log the value of the likesCounter
-//     console.log(likesCounter);
-
-//     // If any errors are experienced, log them to console.
-// }, function(errorObject) {
-
-//     console.log("The read failed: " + errorObject.code);
-// });
+                //     console.log("The read failed: " + errorObject.code);
+                // });
 
 
 
@@ -267,9 +251,82 @@ $(document).on('click', '.ingredientImage', function() {
 
 
 
+// User adds recipe
+$(document).on('click', '#addRecipe', function() {
+    nameInput = $('#nameInput').val().trim();
+    dishNameInput = $('#dishInput').val().trim();
+    ingredientsInput = $('#ingredientsInput').val().trim();
+    preparationInput = $('#preparationInput').val().trim();
+
+    console.log(nameInput);
+    console.log(dishNameInput);
+    console.log(ingredientsInput);
+    console.log(preparationInput);
+
+    database.ref().push({
+        nameInput: nameInput,
+        dishNameInput: dishNameInput,
+        ingredientsInput: ingredientsInput,
+        preparationInput: preparationInput
+    });
+
+    return false;
+});
+
+
+// auto update of user added recipes
+database.ref().on("child_added", function(snapshot) {
+    console.log(snapshot.val());
+
+    // update the variable with data from the database
+    nameInput = snapshot.val().nameInput;
+    dishNameInput = snapshot.val().dishNameInput;
+    ingredientsInput = snapshot.val().ingredientsInput;
+    preparationInput = snapshot.val().preparationInput;
+
+    // add table
+    var tr = $('<tr>');
+    var a = $('<td>');
+    var b = $('<td>');
+    var c = $('<td>');
+    var d = $('<td>');
+
+    a.append(nameInput);
+    b.append(dishNameInput);
+    c.append(ingredientsInput);
+    d.append(preparationInput);
+
+    tr.append(a).append(b).append(c).append(d);
+    $('#newRecipes').append(tr);
+
+
+}, function(errorObject) {
+
+    // In case of error this will print the error
+    console.log("The read failed: " + errorObject.code);
+
+});
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//--------------------------------------------
 // Unused code below
 
 // var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&api_key=dc6zaTOxFJmzC&limit=1";
