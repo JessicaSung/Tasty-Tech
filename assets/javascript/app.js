@@ -101,11 +101,9 @@ $(document.body).on('click', '#addIngredient', function() {
         })
         .done(function(response) {
 
-
             console.log(queryURL);
 
-            console.log(response.results);
-
+      //      console.log(response.results);
 
             // adding dishes to the page
             for (var j = 0; j < response.results.length; j++) {
@@ -133,22 +131,79 @@ $(document.body).on('click', '#addIngredient', function() {
                 ingredientImage.attr('data-recipeId', response.results[j].id);
 
 
-                var likes = $('<button>');
-                likes.addClass('btn btn-primary');
-                likes.addClass('likesButton');
-                likes.html("Like: " + likesCounter);
+//-------------------------------------------------------
 
-                //button like and id for like increment use---------
+                var recipeIdResult = "recipeIdTab" + response.results[j].id;
+                var recipeIdData = response.results[j].id;
 
-                likes.attr('data-like', 0);
-                likes.attr('data-id', response.results[j].id);
+                database.ref(recipeIdResult).on("value", function(snapshot) {
+
+                    console.log("get recipe to firebase" + recipeIdResult);
+
+                
+                     if (snapshot.val() != null) {
+                                                
+                        currentlikes = parseInt(snapshot.val().currentlikes);
+                        // console.log("Current Likes: ", snapshot.val().currentlikes);
+
+                        var likes = $('<button>');
+                        likes.addClass('btn btn-primary');
+                        likes.addClass('likesButton');
+                        likes.html("Like: " + currentlikes);
+
+                        likes.attr('data-like', currentlikes);
+                        likes.attr('data-id', recipeIdData);
+
+                        ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
+
+                           $('#dishes').append(ingredientsDiv);
+
+
+
+                      } else{
+
+                        var likes = $('<button>');
+                         likes.addClass('btn btn-primary');
+                          likes.addClass('likesButton');
+                         likes.html("Like: " + likesCounter);
+
+ 
+
+                           likes.attr('data-like', 0);
+                          likes.attr('data-id', response.results[j].id);
+
+                          ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
+
+                          $('#dishes').append(ingredientsDiv);
+
+
+
+                      };
+
+                }, function (errorObject) {
+
+                     console.log("The read failed: " + errorObject.code);
+
+                });
+
+// --------------------------------------------------------------
+
+                // var likes = $('<button>');
+                // likes.addClass('btn btn-primary');
+                // likes.addClass('likesButton');
+                // likes.html("Like: " + likesCounter);
+
+ 
+
+                // likes.attr('data-like', 0);
+                // likes.attr('data-id', response.results[j].id);
 
                 //---------------------------------
 
 
-                ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
+                // ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
 
-                $('#dishes').append(ingredientsDiv);
+                // $('#dishes').append(ingredientsDiv);
             }
 
         });
