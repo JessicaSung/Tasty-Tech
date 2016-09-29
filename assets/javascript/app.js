@@ -315,9 +315,11 @@ $(document).on('click', '.ingredientImage', function() {
                 // stepByStep.html('<br>' + stepN + ',  ' + step + '<br>');
                 // $('#recipes').append(stepByStep);
                 var exIngList = response.extendedIngredients[i].originalString;
-                var ingredientList = $('<p>');
-                ingredientList.html('<br>' + exIngList + '<br>');
-                $('#recipes').append(exIngList);
+                // var ingredientList = $('<p>');
+                // ingredientList.html('<br>' + exIngList + '<br>');
+                $('#ingredientList').append('<li>' + exIngList + '</li>');
+                // $('ul').append(<li> exIngList </li>);
+
 
             }   
                 var recipeText = response.text;
