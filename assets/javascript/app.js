@@ -304,8 +304,8 @@ $(document).on('click', '.ingredientImage', function() {
 
             console.log(response);
 
-            $('#recipes').empty();
-
+               $('#recipes').empty();
+               $('#ingredientList').empty();
             for (var i = 0; i < response.extendedIngredients.length; i++) {
                 console.log(response.extendedIngredients[i].originalString);
                 console.log(response.text);
