@@ -94,6 +94,10 @@ $(document.body).on('click', '#addIngredient', function() {
     console.log(cuisineinput);
     console.log(queryURL);
 
+    $('#dishes').empty();
+    $('#recipes').empty();
+    $('#ingredientList').empty();
+
     $.ajax({
             url: queryURL,
             method: 'GET',
