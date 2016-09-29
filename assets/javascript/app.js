@@ -88,7 +88,7 @@ $(document.body).on('click', '#addIngredient', function() {
     var ingredient = $('#ingredient').val().trim();
     var cuisineinput = $('#cuisine').val().trim();
     // var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=" + ingredient;
-    var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addRecipeInformation=false&cuisine=' + cuisineinput + '&includeIngredients=' + ingredient + '&limitLicense=false&&number=5&offset=0&query=' + ingredient + '&ranking=1&type=main+course'
+    var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addRecipeInformation=true&cuisine=' + cuisineinput + '&includeIngredients=' + ingredient + '&limitLicense=false&&number=5&offset=0&query=' + ingredient + '&ranking=1&type=main+course'
 
     console.log(ingredient);
     console.log(cuisineinput);
@@ -129,6 +129,7 @@ $(document.body).on('click', '#addIngredient', function() {
                 ingredientImage.addClass('ingredientImage');
                 ingredientImage.addClass('img-responsive');
                 ingredientImage.attr('data-recipeId', response.results[j].id);
+                ingredientImage.attr('data-sourceUrl', response.results[j].sourceUrl);
 
 
 //-------------------------------------------------------
@@ -285,10 +286,12 @@ $(document).on('click', '.ingredientImage', function() {
 
     console.log(recipeID);
 
+    var sourceUrl = $(this).attr('data-sourceUrl')
 
+    console.log(sourceUrl)
 
-    var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + recipeID + "/analyzedInstructions";
-
+    // var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + recipeID + "/analyzedInstructions";
+       var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/extract?forceExtraction=true&url=' + sourceUrl;
     $.ajax({
             url: queryURL,
             method: 'GET',
@@ -303,19 +306,21 @@ $(document).on('click', '.ingredientImage', function() {
 
             $('#recipes').empty();
 
-            for (var i = 0; i < response[0].steps.length; i++) {
-                var stepN = response[0].steps[i].number;
-                var step = response[0].steps[i].step;
-                var stepByStep = $('<p>');
-                stepByStep.html('<br>' + stepN + ',  ' + step + '<br>');
-                $('#recipes').append(stepByStep);
+            for (var i = 0; i < response.extendedIngredients.length; i++) {
+                console.log(response.extendedIngredients[i].originalString);
+                console.log(response.text);
+                // var stepN = response[0].steps[i].number;
+                // var step = response[0].steps[i].step;
+                // var stepByStep = $('<p>');
+                // stepByStep.html('<br>' + stepN + ',  ' + step + '<br>');
+                // $('#recipes').append(stepByStep);
 
             }
         });
 });
 
 
-
+// https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/extract?forceExtraction=false&url=' + sourceUrl
 
 
 
