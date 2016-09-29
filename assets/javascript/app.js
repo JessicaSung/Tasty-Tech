@@ -314,8 +314,17 @@ $(document).on('click', '.ingredientImage', function() {
                 // var stepByStep = $('<p>');
                 // stepByStep.html('<br>' + stepN + ',  ' + step + '<br>');
                 // $('#recipes').append(stepByStep);
+                var exIngList = response.extendedIngredients[i].originalString;
+                var ingredientList = $('<p>');
+                ingredientList.html('<br>' + exIngList + '<br>');
+                $('#recipes').append(exIngList);
 
-            }
+            }   
+                var recipeText = response.text;
+               
+                var recipeDirections = $('<p>');
+                recipeDirections.html('<br>' + recipeText +  '<br>');
+                $('#recipes').append(recipeDirections);
         });
 });
 
