@@ -143,7 +143,7 @@ $(document.body).on('click', '#addIngredient', function() {
 
                 database.ref(recipeIdResult).on("value", function(snapshot) {
 
-                    console.log("get recipe to firebase" + recipeIdResult);
+                   // console.log("get recipe to firebase" + recipeIdResult);
 
                 
                      if (snapshot.val() != null) {
@@ -236,14 +236,14 @@ $(document).on('click', '.likesButton', function(){
     var currentlikes = $(this).data("like");
     var currentId = $(this).data("id");
 
-    console.log("currentId:  " + currentId);
+   // console.log("currentId:  " + currentId);
 
     currentlikes = currentlikes + 1;
 
     $(this).data('like', currentlikes);
     $(this).html("Like: " + currentlikes);
     //likesCounter++;
-    console.log("currentlikes=  " + currentlikes);
+  //  console.log("currentlikes=  " + currentlikes);
 
     //var newvar = recipeID + "like"
     
@@ -304,12 +304,19 @@ $(document).on('click', '.ingredientImage', function() {
         .done(function(response) {
 
 
-            console.log(queryURL);
+            //console.log(queryURL);
 
-            console.log(response);
+            console.log("clicked img = " +response.title);
 
                $('#recipes').empty();
                $('#ingredientList').empty();
+
+               var recipeTitle =  response.title;
+               $('#ingredientList').html('<h2>' + recipeTitle +'</h2>');
+
+
+
+
             for (var i = 0; i < response.extendedIngredients.length; i++) {
                 console.log(response.extendedIngredients[i].originalString);
                 console.log(response.text);
