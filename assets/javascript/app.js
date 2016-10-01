@@ -303,8 +303,8 @@ $(document).on('click', '.ingredientImage', function() {
         })
         .done(function(response) {
 
-
-            //console.log(queryURL);
+            console.log(response);
+            console.log(queryURL);
 
             console.log("clicked img = " +response.title);
 
@@ -332,12 +332,24 @@ $(document).on('click', '.ingredientImage', function() {
                 // $('ul').append(<li> exIngList </li>);
 
 
-            }   
+            }  
+
                 var recipeText = response.text;
-               
+
+                recipeID.replace(/\r\n\-/g, "<br/>-")
                 var recipeDirections = $('<p>');
                 recipeDirections.html('<br>' + recipeText +  '<br>');
                 $('#recipes').append(recipeDirections);
+
+
+
+
+                var recInstructions = response.instructions;
+                recipeDirections.html(recInstructions);
+                
+
+
+
         });
 });
 
