@@ -1,19 +1,4 @@
-/******************* other *******************/
-.height {
-	/*height: 250px;*/
-	margin-bottom: 60px;
-}
-
-.text {
-  color: #428bca;
-  font-size: 24px;
-  font-weight: bolder;
-}
-
-.unfloat {
-	clear: both;
-}
-
+/******************* css styling *******************/
 #dishes {
     text-align: left;
 }
@@ -21,6 +6,17 @@
   display:inline-block;
   float:none;
   text-align:center;
+}
+.height {
+  margin-bottom: 60px;
+}
+.text {
+  color: #428bca;
+  font-size: 24px;
+  font-weight: bolder;
+}
+.unfloat {
+  clear: both;
 }
 
 
@@ -38,11 +34,3 @@
         text-align: center;
     }
 }
-
-
-
-/******************* unused code *******************/
-/*#answerImage img {
-  width: 200px;
-  height: 200px;
-}*/
