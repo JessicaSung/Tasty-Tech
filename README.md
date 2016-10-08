@@ -23,7 +23,7 @@ After clicking Find Recipes button 5 recipe images will display. (Future release
 
 Next click on a recipe image that you like and the recipe will display at the bottom of the page. (Future release will display recipe in a modal.)
 
-![Recipe Ingredients](assets/images/tastytech_ingredients.png)
+![Recipe Ingredients](https://github.com/JessicaSung/Tasty-Tech/master/assets/images/tastytech_ingredients.png)
 
 Users may also input their own recipes into the apps database. By clicking the "User Submitted Recipes" navigation button the user will be directed to a page where the may see recipes by other users as well as input their own. (Future releases will allow users to search these recipes much like in the "Find A Recipe" page.)
 
@@ -31,21 +31,21 @@ Users may also input their own recipes into the apps database. By clicking the "
 
 ##Technologies Used in the Creation of this Project
 
-*html
-*css
-*bootstrap
-*javascript
-*jquery
-*AJAX
-*firebase
-*spoonacular API
-*slack
-*heroku
-*git hub
-*Sublime Text 3
-*git Bash
-*flaming text
-*google font
+* html
+* css
+* bootstrap
+* javascript
+* jquery
+* AJAX
+* firebase
+* spoonacular API
+* slack
+* heroku
+* git hub
+* Sublime Text 3
+* git Bash
+* flaming text
+* google font
 
 Now let ![Tasty Tech Logo](assets/images/tastytech_logo_2.png) find a recipe for you!
 
