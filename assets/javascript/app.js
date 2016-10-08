@@ -336,7 +336,7 @@ $(document).on('click', '.ingredientImage', function() {
 
                 var recipeText = response.text;
 
-                recipeID.replace(/\r\n\-/g, "<br/>-")
+                // recipeID.replace(/\r\n\-/g, "<br/>-")
                 var recipeDirections = $('<p>');
                 recipeDirections.html('<br>' + recipeText +  '<br>');
                 $('#recipes').append(recipeDirections);
