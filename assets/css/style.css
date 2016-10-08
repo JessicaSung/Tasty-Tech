@@ -1,19 +1,4 @@
 /******************* other *******************/
-.height {
-	/*height: 250px;*/
-	margin-bottom: 60px;
-}
-
-.text {
-  color: #428bca;
-  font-size: 24px;
-  font-weight: bolder;
-}
-
-.unfloat {
-	clear: both;
-}
-
 #dishes {
     text-align: left;
 }
@@ -22,6 +7,22 @@
   float:none;
   text-align:center;
 }
+.height {
+	margin-bottom: 60px;
+}
+.ingredientImage{
+  width: 300;
+  height: 200;
+}
+.text {
+  color: #428bca;
+  font-size: 24px;
+  font-weight: bolder;
+}
+.unfloat {
+	clear: both;
+}
+
 
 
 
@@ -38,18 +39,3 @@
         text-align: center;
     }
 }
-
-
-
-/******************* unused code *******************/
-/*#answerImage img {
-  width: 200px;
-  height: 200px;
-}*/
-
-.ingredientImage{
-  width: 300;
-  height: 200;
-
-}
-
