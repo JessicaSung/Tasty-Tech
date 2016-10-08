@@ -17,7 +17,7 @@ var ingredientsInput = "";
 var preparationInput = "";
 
 
-// FUNCTIONS + EVENTS
+// Capture user input for User Submitted Recipes
 $(document).on('click', '#addRecipe', function() {
     nameInput = $('#nameInput').val().trim();
     dishNameInput = $('#dishInput').val().trim();
@@ -40,11 +40,11 @@ $(document).on('click', '#addRecipe', function() {
 });
 
 
-// MAIN PROCESS + INITIAL CODE
+// Update User Submitted Recipes table dynamically
 database.ref().on("child_added", function(snapshot) {
     console.log(snapshot.val());
 
-    // update the variable with data from the database
+    // update local variables with database data
     nameInput = snapshot.val().nameInput;
     dishNameInput = snapshot.val().dishNameInput;
     ingredientsInput = snapshot.val().ingredientsInput;
@@ -76,18 +76,16 @@ database.ref().on("child_added", function(snapshot) {
 
 
 
-// Ingredients VARIABLES
+// Ingredient VARIABLES
 var ingredientCount = 0;
 var likesCounter = 0;
 
 
-// AJAX call dishes with ingredients from spoonacular
+// AJAX call from Spoonacular API - User ingredients input outputs recipes
 $(document.body).on('click', '#addIngredient', function() {
 
-
     var ingredient = $('#ingredient').val().trim();
-    var cuisineinput = $('#cuisine').val().trim();
-    // var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=" + ingredient;
+    var cuisineinput = $('#cuisine').val().trim();   
     var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addRecipeInformation=true&cuisine=' + cuisineinput + '&includeIngredients=' + ingredient + '&limitLicense=false&&number=5&offset=0&query=' + ingredient + '&ranking=1&type=main+course'
 
     console.log(ingredient);
@@ -105,132 +103,77 @@ $(document.body).on('click', '#addIngredient', function() {
         })
         .done(function(response) {
 
-            console.log(queryURL);
+        console.log(queryURL);
 
-      //      console.log(response.results);
+        // adding dishes to the page
+        for (var j = 0; j < response.results.length; j++) {
 
-            // adding dishes to the page
-            for (var j = 0; j < response.results.length; j++) {
+            var ingredientsDiv = $('<div>');
+            ingredientsDiv.addClass('col-md-4');
+            ingredientsDiv.addClass('height');
 
-                var ingredientsDiv = $('<div>');
-                ingredientsDiv.addClass('col-md-4');
-                ingredientsDiv.addClass('height');
+            var title = response.results[j].title;
 
-                // If there are more than 3 dishes returned, add the ones more than 3 in a new row
-                //         if ($('#dishes > .row > div.col-md-4') > 3) {
-                // var newRow = $('<div>');
-                // newRow.addClass('row');
-
-                // // add the row to the page
-                // $('#dishes').append(newRow);
-                //         }
+            var ingredientImage = $('<img>');
+            ingredientImage.attr('src', response.results[j].image);
+            ingredientImage.addClass('ingredientImage');
+            ingredientImage.addClass('img-responsive');
+            ingredientImage.attr('data-recipeId', response.results[j].id);
+            ingredientImage.attr('data-sourceUrl', response.results[j].sourceUrl);
 
 
-                var title = response.results[j].title;
-
-                var ingredientImage = $('<img>');
-                ingredientImage.attr('src', response.results[j].image);
-                ingredientImage.addClass('ingredientImage');
-                ingredientImage.addClass('img-responsive');
-                ingredientImage.attr('data-recipeId', response.results[j].id);
-                ingredientImage.attr('data-sourceUrl', response.results[j].sourceUrl);
+            var recipeIdResult = "recipeIdTab" + response.results[j].id;
+            var recipeIdData = response.results[j].id;
 
 
-//-------------------------------------------------------
-
-                var recipeIdResult = "recipeIdTab" + response.results[j].id;
-                var recipeIdData = response.results[j].id;
-
-                database.ref(recipeIdResult).on("value", function(snapshot) {
-
-                   // console.log("get recipe to firebase" + recipeIdResult);
-
-                
-                     if (snapshot.val() != null) {
+            // when 'Like' button is clicked, value in firebase is updated - 'Like' button functionality is coded below
+            database.ref(recipeIdResult).on("value", function(snapshot) {
+                 
+                if (snapshot.val() != null) {
                                                 
-                        currentlikes = parseInt(snapshot.val().currentlikes);
-                        // console.log("Current Likes: ", snapshot.val().currentlikes);
+                    currentlikes = parseInt(snapshot.val().currentlikes);
+                        
+                    var likes = $('<button>');
+                    likes.addClass('btn btn-primary');
+                    likes.addClass('likesButton');
+                    likes.html("Like: " + currentlikes);
+                    likes.attr('data-like', currentlikes);
+                    likes.attr('data-id', recipeIdData);
 
-                        var likes = $('<button>');
-                        likes.addClass('btn btn-primary');
-                        likes.addClass('likesButton');
-                        likes.html("Like: " + currentlikes);
+                    ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
 
-                        likes.attr('data-like', currentlikes);
-                        likes.attr('data-id', recipeIdData);
+                   $('#dishes').append(ingredientsDiv);
+                } 
 
-                        ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
+                else{
+                    var likes = $('<button>');
+                    likes.addClass('btn btn-primary');
+                    likes.addClass('likesButton');
+                    likes.html("Like: " + likesCounter);
+                    likes.attr('data-like', 0);
+                    likes.attr('data-id', response.results[j].id);
 
-                           $('#dishes').append(ingredientsDiv);
+                    ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
 
+                    $('#dishes').append(ingredientsDiv);
+                }
 
+            }, function (errorObject) {
 
-                      } else{
+                console.log("The read failed: " + errorObject.code);
 
-                        var likes = $('<button>');
-                         likes.addClass('btn btn-primary');
-                          likes.addClass('likesButton');
-                         likes.html("Like: " + likesCounter);
+            }); // updating firebase value
 
- 
+        } // for loop to add dishes to the page
 
-                           likes.attr('data-like', 0);
-                          likes.attr('data-id', response.results[j].id);
-
-                          ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
-
-                          $('#dishes').append(ingredientsDiv);
-
-
-
-                      };
-
-                }, function (errorObject) {
-
-                     console.log("The read failed: " + errorObject.code);
-
-                });
-
-// --------------------------------------------------------------
-
-                // var likes = $('<button>');
-                // likes.addClass('btn btn-primary');
-                // likes.addClass('likesButton');
-                // likes.html("Like: " + likesCounter);
-
- 
-
-                // likes.attr('data-like', 0);
-                // likes.attr('data-id', response.results[j].id);
-
-                //---------------------------------
-
-
-                // ingredientsDiv.html("<h6>" + title + "</h6>").append(ingredientImage).append(likes);
-
-                // $('#dishes').append(ingredientsDiv);
-            }
-
-        });
+    }); // AJAX call
 
     return false;
-});
+}); // clicking ingredient button
 
 
 
-// Clicking like button increments the number of likes in the firebase database
 
-// $(document).on('click', '.likesButton', function() {
-//     likesCounter++;
-//     console.log(likesCounter);
-
-//     database.ref().set({
-//         likesCounter: likesCounter
-//     });
-
-// });
-
-//--------------------------------------------
 
 $(document).on('click', '.likesButton', function(){
     var currentlikes = $(this).data("like");
