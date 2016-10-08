@@ -8,7 +8,7 @@ Contributors:
 
 ## What does Tasty Tech do for You!
 
-Don't what to make for dinner with the ingredients you have in your fridge and pantry?
+Don't know what to make for dinner with the ingredients you have in your fridge and pantry?
 With the Tasty Tech web app you can simply tell Tasty Tech what you have and it will suggest recipes for you to try.
 
 ## How to use Tasty Tech.
@@ -17,11 +17,11 @@ Enter the ingredients you would like to use in the ingredients input field seper
 
 ![Find Recipes](assets/images/tastytech_landingpage.PNG)
 
-After clicking Find Recipes button 5 recipe images will display. (Future release will give user option to choose the number of recipes to display. As of 10/07/2016 only 5 will display.)
+After clicking Find Recipes button, 5 recipe images will display. (Future release will give user option to choose the number of recipes to display. As of 10/07/2016 only 5 will display.)
 
 ![Recipe Images](assets/images/tastytech_recipeimages.PNG)
 
-Next click on a recipe image that you like and the recipe will display at the bottom of the page. (Future release will display recipe in a modal.)
+Next, click on a recipe image that you like and the recipe will display at the bottom of the page. (Future release will display recipe in a modal.)
 
 ![Recipe Ingredients](assets/images/tastytech_ingredients.PNG)
 
