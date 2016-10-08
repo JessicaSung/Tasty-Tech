@@ -47,4 +47,5 @@ Users may also input their own recipes into the application's database. By click
 * Google Fonts
 * Flaming Text
 
-# ![Tasty Tech Logo](assets/images/tastytech_logo_2.png) It's what's for dinner!
+![Tasty Tech Logo](assets/images/tastytech_logo_2.png) 
+"It's what's for dinner!"
