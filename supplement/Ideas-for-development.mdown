@@ -1,0 +1,3 @@
+#Ideas for later development
+
+It'd be cool to have ingredients of what is in your fridge and pantry and spices available to you. You type in what your family wants to make for dinner each night of the week. The app pulls all of the ingredients and the quantities needed for each recipe, subtracts what you have, and makes you a grocery list. Then, it consolidates the ingredients into the least number of stores you need to visit and possibly routes you to the closest HEB/Walmart/Costco with cold/frozen ingredients purchased at the later stores.
